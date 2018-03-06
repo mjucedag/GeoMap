@@ -2,7 +2,9 @@ package com.example.uceda.geomap;
 //https://github.com/izvproyectodam/Maps1718/blob/master/app/src/main/java/com/izv/dam/maps1718/MapsActivity.java
 //https://github.com/izvproyectodam/Maps1718 APUNTES DE CARMELO
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.ConfigurationInfo;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        // Check if the system supports OpenGL ES 2.0.
+        final ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
+        final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
+
+        System.out.println("Soporta OpenGL ES 2.0 -> " + supportsEs2);
 
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
